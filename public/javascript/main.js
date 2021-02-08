@@ -134,9 +134,8 @@ sabrina.seDeplacer(epicerie, maison)
 console.log (`${sabrina.nom} retourne à la maison`)
 
 //Sabrina prépare à manger
-bol.mélanger()
-console.log(`Mon bol contient une ${bol.contenu[i].nom} qui a l'état: ${bol.contenu[0].état}`)
-console.log(`Mon bol contient ${bol.contenu.length} élément(s)`)
+console.log(`Mon bol contient une ${bol.contenu[].nom} qui a l'état: ${bol.contenu[].état}`)
+console.log(`Mon bol contient ${bol.contenu[i].length} élément(s)`)
 
 poele.contenu.push(bol.contenu[0]);
 console.log(`${poele.contenu[i].nom} à été ajouté dans ma poele`)
