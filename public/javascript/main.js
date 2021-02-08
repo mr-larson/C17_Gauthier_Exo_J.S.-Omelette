@@ -1,6 +1,6 @@
 //EXO-Omelette
 //------------ les Class ---------------
-class Personne{
+class Personnes{
     constructor(nom, lieu, argent){
         this.nom = nom
         this.lieu = lieu
@@ -10,9 +10,9 @@ class Personne{
         this.seDeplacer = (depart, destination) => {
             depart.personnes.splice (depart.personnes.indexOf(this),1)
             destination.personnes.push(this)
-            console.log (`${this.nom} va à  ${this.lieu.nom}`)
+            console.log (`${this.nom} va à ${destination.nom}`)
         }
-        this.payerAtricle = (ingredients) => {
+        this.payerArticle = (ingredients) => {
             this.argent -= ingredients.prix
         }
         this.couper = (ingredients, outils) => {
@@ -61,15 +61,15 @@ let sabrina = new Personnes ("Sabrina", maison.nom, 100, [], [])
 
 //outils
 let couteau = {
-    nom = "Couteau",
-    couper = () => {
+    nom : "Couteau",
+    couper () {
 
     }
 }
 let poele = {
-    nom = "Poele",
-    contenu = [],
-    cuire = () => {
+    nom : "Poele",
+    contenu : [],
+    cuire () {
         setTimeout(() => {
             this.contenu [0].etat = "cuit"
             console.log (`${this.contenu[0].nom} est ${this.contenu[0].etat} !`)
@@ -77,9 +77,9 @@ let poele = {
     }
 } 
 let bol = {
-    nom = "bol",
-    contenu = [],
-    melanger = (nomMelange) => {
+    nom : "bol",
+    contenu : [],
+    melanger (nomMelange) {
         let newMelange = {
             nom: nomMelange,
             etat: "cru"
@@ -101,28 +101,47 @@ let fromage = new Ingredients ("Fromage", "entier", 4)
 epicerie.ingredients = [oeuf, oignon, lait, sel, poivre, fromage]
 
 //Sabrina se déplace
-personne.push(maison)
-personne.seDeplacer(epicerie)
+maison.personnes.push(sabrina)
+sabrina.seDeplacer(maison, epicerie)
 
 //Sabrina récupère son panier de course
-personne.mainDroite = epicerie.panier[0];
-epicerie.panier.shift();
-console.log(`${personne.nom} a pris un ${personne.mainDroite.nom}`);
+sabrina.mainDroite.push (epicerie.panier[0])
+epicerie.panier.shift()
+console.log(`${sabrina.nom} a pris un ${sabrina.mainDroite[0].type}`)
 console.log(`Il reste donc ${epicerie.panier.length} panier dans le stock des paniers de ${epicerie.nom}`)
 
 //Sabrina ajoute ses courses
 for (let i=0; i < epicerie.ingredients.length; i++){
-    personne.mainDroite.contenu.push(epicerie.ingredients[i])
-    console.log(`${personne.nom} a pris ${personne.mainDroite.contenu[i].nom}`)
+    sabrina.mainDroite[0].contenu.push(epicerie.ingredients[i])
+    console.log(`${sabrina.nom} a pris ${sabrina.mainDroite[0].contenu[i].nom}`)
+    sabrina.payerArticle(epicerie.ingredients[i]);
 }
 
 //Sabrina paye les courses
-personne.payerArticle();
-console.log(`${personne.nom} a ${personne.argent} euros`)
+console.log(`${sabrina.nom} a ${sabrina.argent} euros`)
 
 //Sabrina rentre à la maison
-personne.seDeplacer(maison)
+sabrina.seDeplacer(epicerie, maison)
+
+//Sabrina ramène le panier
+sabrina.seDeplacer(maison, epicerie)
+console.log (`${sabrina.nom} ramène le panier`)
+epicerie.panier.push(sabrina.mainDroite.shift())
+console.log (epicerie.panier)
+
+//Sabrina retourne à la maison
+sabrina.seDeplacer(epicerie, maison)
+console.log (`${sabrina.nom} retourne à la maison`)
 
 //Sabrina prépare à manger
-couteau.couper()
-bol.melanger()
+bol.mélanger()
+console.log(`Mon bol contient une ${bol.contenu[i].nom} qui a l'état: ${bol.contenu[0].état}`)
+console.log(`Mon bol contient ${bol.contenu.length} élément(s)`)
+
+poele.contenu.push(bol.contenu[0]);
+console.log(`${poele.contenu[i].nom} à été ajouté dans ma poele`)
+console.log(`Ma poele contient ${poele.contenu.length} élément(s)`)
+
+bol.contenu = []
+console.log(`Mon bol contient ${bol.contenu.length} élément(s)`)
+
