@@ -15,17 +15,16 @@ class Personnes{
         this.payerArticle = (ingredients) => {
             this.argent -= ingredients.prix
         }
-        this.couper = (ingredients, outils) => {
-            console.log(`${this.nom} prend ${this.mainDroite.nom} pour ${mainDroite.action}`);
-            for (let i=0; i<bol.contenu.length; i++){
-            if (ingredients[i].etat != "entier"){
-                console.log(`${ingredients[i].nom} est déjà coupé`);
-            }else{
-                ingredients[i].etat = "coupé"
-                console.log(`${ingredients[i].nom} a été coupé avec ${this.mainDroite.nom}`)
-            }
+        this.couper = () => {
+            bol.contenu.forEach(element => {
+                couteau.couper(element)
+            })
         }
-        this.mainDroite = ""
+        this.vider = () => {
+            while(this.mainDroite[0].contenu.length > 0){
+                console.log(`${this.nom} avez ajouté ${this.mainDroite[0].contenu[0].nom} dans le bol`);
+                bol.contenu.push(this.mainDroite[0].contenu.shift());
+            }
         }
     }
 }
@@ -84,6 +83,9 @@ let bol = {
             nom: nomMelange,
             etat: "cru"
         }
+        while (this.contenu.length>0){
+            this.contenu.shift()
+        }
         this.contenu.push(newMelange)
     }
 }
@@ -122,6 +124,7 @@ console.log(`${sabrina.nom} a ${sabrina.argent} euros`)
 
 //Sabrina rentre à la maison
 sabrina.seDeplacer(epicerie, maison)
+sabrina.vider()
 
 //Sabrina ramène le panier
 sabrina.seDeplacer(maison, epicerie)
@@ -134,13 +137,17 @@ sabrina.seDeplacer(epicerie, maison)
 console.log (`${sabrina.nom} retourne à la maison`)
 
 //Sabrina prépare à manger
-console.log(`Mon bol contient une ${bol.contenu[].nom} qui a l'état: ${bol.contenu[].état}`)
-console.log(`Mon bol contient ${bol.contenu[i].length} élément(s)`)
+sabrina.couper()
+epicerie.ingredients.push (bol)
+console.log(bol)
+bol.melanger("omelette")
+console.log(`le bol contient une ${bol.contenu[0].nom} qui a l'état: ${bol.contenu[0].état}`)
+console.log(`le bol contient ${bol.contenu.nom} élément(s)`)
 
-poele.contenu.push(bol.contenu[0]);
-console.log(`${poele.contenu[i].nom} à été ajouté dans ma poele`)
-console.log(`Ma poele contient ${poele.contenu.length} élément(s)`)
+poele.contenu.push(bol.contenu[0])
+console.log(`${poele.contenu[0].nom} à été ajouté dans la poele`)
+console.log(`la poele contient ${poele.contenu.length} élément(s)`)
 
-bol.contenu = []
-console.log(`Mon bol contient ${bol.contenu.length} élément(s)`)
+console.log(`le bol contient ${bol.contenu.length} élément(s)`)
 
+poele.cuire(); 
