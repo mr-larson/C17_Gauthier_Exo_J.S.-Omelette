@@ -62,7 +62,11 @@ let sabrina = new Personnes ("Sabrina", maison.nom, 100, [], [])
 let couteau = {
     nom : "Couteau",
     couper () {
-
+        setTimeout(() => {
+            bol.contenu.forEach(element => {
+                couteau.couper(element);
+            })
+        }, 4000)
     }
 }
 let poele = {
@@ -137,7 +141,8 @@ sabrina.seDeplacer(epicerie, maison)
 console.log (`${sabrina.nom} retourne à la maison`)
 
 //Sabrina prépare à manger
-sabrina.couper()
+sabrina.couper(bol.contenu,couteau)
+console.log(bol.contenu);
 epicerie.ingredients.push (bol)
 console.log(bol)
 bol.melanger("omelette")
